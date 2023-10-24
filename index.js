@@ -33,7 +33,8 @@ router.get('/export', async (req, res) => {
                      endereco: value.endereco,
                       status: value.status,
                      });
-        
+           
+            
             // Change the color of the 'ID' cell to blue
             row.getCell(1).fill = {
                 type: 'pattern',
@@ -56,6 +57,16 @@ router.get('/export', async (req, res) => {
             };
         });
 
+        for(i = 0; i <= sheet.rowCount; i++){
+            if(sheet.getRow(i).getCell(3).value == "positivo"){
+                sheet.getRow(i).getCell(3).fill = {
+                    type: 'pattern',
+                pattern: 'solid',
+                fgColor: { argb: 'FF008000' } // ARGB value for green color
+                }
+            }
+        }
+
         res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         res.setHeader("Content-Disposition", "attachment; filename=" + "cases.xlsx");
         workbook.xlsx.write(res)
@@ -63,6 +74,7 @@ router.get('/export', async (req, res) => {
     } catch (error) {
         console.log(error);
     }
+   
 
 })
 
@@ -71,4 +83,3 @@ app.use('/', router);
 app.listen(PORT, () => {
     console.log(`Server is runing on port: ${PORT}`);
 });
-
