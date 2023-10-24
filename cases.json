@@ -1,0 +1,27 @@
+[
+    {
+      "id": 1,
+      "endereco": "Rua Exemplo, 123",
+      "status": "positivo"
+    },
+    {
+      "id": 2,
+      "endereco": "Avenida Teste, 456",
+      "status": "negativo"
+    },
+    {
+      "id": 3,
+      "endereco": "Praça Amostra, 789",
+      "status": "suspeito"
+    },
+    {
+      "id": 4,
+      "endereco": "Estrada Demonstração, 101",
+      "status": "positivo"
+    },
+    {
+      "id": 5,
+      "endereco": "Alameda Modelo, 202",
+      "status": "suspeito"
+    }
+  ]
