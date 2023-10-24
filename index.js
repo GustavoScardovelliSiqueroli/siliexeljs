@@ -34,38 +34,31 @@ router.get('/export', async (req, res) => {
                       status: value.status,
                      });
            
-            
-            // Change the color of the 'ID' cell to blue
-            row.getCell(1).fill = {
-                type: 'pattern',
-                pattern: 'solid',
-                fgColor: { argb: 'FF0000FF' } // ARGB value for blue color
-            };
-        
-            // Change the color of the 'Endereço' cell to green
-            row.getCell(2).fill = {
-                type: 'pattern',
-                pattern: 'solid',
-                fgColor: { argb: 'FF008000' } // ARGB value for green color
-            };
-        
-            // Change the color of the 'Status' cell to red
-            row.getCell(3).fill = {
-                type: 'pattern',
-                pattern: 'solid',
-                fgColor: { argb: 'FFFF0000' } // ARGB value for red color
-            };
         });
-
+        //Como faço para mudar somente a cor da letra e não a cor da célula inteira?
         for(i = 0; i <= sheet.rowCount; i++){
             if(sheet.getRow(i).getCell(3).value == "positivo"){
-                sheet.getRow(i).getCell(3).fill = {
+                sheet.getRow(i).getCell(3).font = {
                     type: 'pattern',
-                pattern: 'solid',
-                fgColor: { argb: 'FF008000' } // ARGB value for green color
+                    color: { argb: 'FF008000' } // ARGB value for green color
                 }
             }
+            sheet.getRow(i).getCell(1).alignment = {
+                vertical: 'middle',
+                horizontal: 'center'
+            }
         }
+    
+        console.log(sheet.addTable({
+            name: 'Dam',
+            ref: 'A1',
+            headerRow: true,
+            totalsRow: true,
+            style: {
+              theme: 'TableStyleDark3',
+              showRowStripes: true,
+            }}));
+        console.log(sheet.getTable(1));
 
         res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         res.setHeader("Content-Disposition", "attachment; filename=" + "cases.xlsx");
@@ -83,3 +76,4 @@ app.use('/', router);
 app.listen(PORT, () => {
     console.log(`Server is runing on port: ${PORT}`);
 });
+
